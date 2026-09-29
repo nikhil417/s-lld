@@ -1,2 +1,2 @@
 # s-lld
-LLD section from scaler
+LLD section
