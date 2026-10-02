@@ -1,9 +1,6 @@
 package Multithreading;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class Client {
     public static void main(String[] args) throws Exception {
@@ -70,18 +67,52 @@ public class Client {
 //
 //        /// /////////////
 
-        Counter counter = new Counter();
+//        Counter counter = new Counter();
+//
+//        Thread adderThread = new Thread(new Adder(counter), "Adder");
+//
+//        Thread subtracterThread = new Thread(new Subtractor(counter), "Subtractor");
+//
+//        adderThread.start();
+//        subtracterThread.start();
+//
+//        adderThread.join();
+//        subtracterThread.join();
+//
+//        System.out.println("Final value = " + counter.value);
+//
+//        /// ///////////////////
 
-        Thread adderThread = new Thread(new Adder(counter), "Adder");
+//        Semaphore semaphore = new Semaphore(3);
+//
+//        for(int i=0 ; i <=6 ; i++) {
+//            Thread t = new Thread(new SemaphoreTask(i, semaphore), "Worker-" + i);
+//            t.start();
+//        }
+//
+//        /// /////////////////
 
-        Thread subtracterThread = new Thread(new Subtractor(counter), "Subtractor");
+        SharedBuffer buffer =
+                new SharedBuffer(5);
 
-        adderThread.start();
-        subtracterThread.start();
+        Thread producer =
+                new Thread(
+                        new Producer(buffer),
+                        "Producer"
+                );
 
-        adderThread.join();
-        subtracterThread.join();
+        Thread consumer =
+                new Thread(
+                        new Consumer(buffer),
+                        "Consumer"
+                );
 
-        System.out.println("Final value = " + counter.value);
+        producer.start();
+        consumer.start();
+
+        producer.join();
+        consumer.join();
+
+        System.out.println("Finished");
     }
 }
