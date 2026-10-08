@@ -1,22 +1,27 @@
 package Generics;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Client {
-
     public static void main(String[] args) {
+        Item i1 = new Item("1", "bat", 10, 1000);
+        Item i2 = new Item("2", "Bowl", 20, 200);
+        Item i3 = new Item("3", "Shirt", 15, 800);
+        Item i4 = new Item("4", "Jeans", 12, 600);
 
-//        Object type if nothing is passed/ raw type
-//        Stack s = new Stack();
+        List<Item> items = new ArrayList<>();
 
-        Pair<String, Double> p1 = new Pair<>();
+        Inventory<Book> bookInventory = new Inventory<>();
 
-        p1.setX("Rob");
-        p1.setY(123.2);
+        items.add(i1);
+        items.add(i3);
+        items.add(i2);
+        items.add(i4);
 
-        System.out.println(p1.getX());
-        System.out.println(p1.getY());
+        Collections.sort(items);
 
-
-        Pair.doSomething(123);
-
+        System.out.println(items);
     }
 }

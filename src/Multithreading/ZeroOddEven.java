@@ -12,8 +12,14 @@ public class ZeroOddEven implements Runnable{
 
     public void run() {
         try {
-            zeroSemaphore.acquire();
+            try {
+                zeroSemaphore.acquire();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             System.out.println("");
+        } catch (Exception e){
+
         }
     }
 }
